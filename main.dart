@@ -4,7 +4,7 @@ class Book {
   bool isBorrowed;
   Book(this.bookId, this.bookTitle, {this.isBorrowed = false});
   void displayBookInfo() {
-    print("Book Id: $bookId\nBook Title: $bookTitle\nBooked: $isBorrowed");
+    print("Book Id: $bookId\nBook Title: $bookTitle\nBorrowed: $isBorrowed");
   }
 }
 
