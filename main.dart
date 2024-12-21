@@ -8,4 +8,13 @@ class Book {
   }
 }
 
+class User {
+  String userId;
+  String userName;
+  User(this.userId, this.userName);
+  void displayUserInfo() {
+    print("User Id: $userId\nUser Name: $userName");
+  }
+}
+
 void main() {}
