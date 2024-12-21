@@ -1,10 +1,10 @@
 class Book {
   String bookId;
   String bookTitle;
-  bool isBooked;
-  Book(this.bookId, this.bookTitle, {this.isBooked = false});
+  bool isBorrowed;
+  Book(this.bookId, this.bookTitle, {this.isBorrowed = false});
   void displayBookInfo() {
-    print("Book Id: $bookId\nBook Title: $bookTitle\nBooked: $isBooked");
+    print("Book Id: $bookId\nBook Title: $bookTitle\nBooked: $isBorrowed");
   }
 }
 
@@ -52,12 +52,25 @@ class Library {
         orElse: () => Book(" ", " "));
     if (bookToBeBorrowed.bookId == " ") {
       print("Book not found");
-    } else if (bookToBeBorrowed.isBooked) {
+    } else if (bookToBeBorrowed.isBorrowed) {
       print("Book is already borrowed.");
     } else {
-      bookToBeBorrowed.isBooked = true;
+      bookToBeBorrowed.isBorrowed = true;
       print(
           "Book: ${bookToBeBorrowed.bookTitle} borrowed by user with id: $userId");
+    }
+  }
+
+  void returnBook(String bookId) {
+    var bookToBeReturned = books.firstWhere((b) => b.bookId == bookId,
+        orElse: () => Book(" ", " "));
+    if (bookToBeReturned.bookId == " ") {
+      print("Book not found.");
+    } else if (!bookToBeReturned.isBorrowed) {
+      print("Book is not currently borrowed");
+    } else {
+      bookToBeReturned.isBorrowed = false;
+      print("Book: ${bookToBeReturned.bookTitle} has been returned.");
     }
   }
 }
@@ -84,7 +97,10 @@ void main() {
   library.borrowBook('B002', 'U002');
   library.borrowBook('B003', 'U001');
   library.borrowBook('B004', 'U001'); //book not found case
-  library.borrowBook('B001', 'U001'); //book already booked case
+  library.borrowBook('B001', 'U001'); //book already borrowed case
+  library.returnBook('B001');
+  library.borrowBook('B001', 'U002');
+  library.returnBook('B005');
 
   library.displayLibraryInfo();
 }
